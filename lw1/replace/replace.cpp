@@ -37,35 +37,6 @@ std::string ReplaceString(const std::string& subject,
 	return result;
 }
 
-void GetResult(const std::string& inputFileName, const std::string& outputFileName,
-	const std::string& searchString, const std::string& replacmentString)
-{
-
-	std::ifstream inputFile;
-	inputFile.open(inputFileName);
-
-	if (!inputFile.is_open())
-	{
-		printf("Something is wrong with the input file"); // не использовать принтф
-	}
-
-	std::ofstream outputFile;
-	outputFile.open(outputFileName);
-
-	if (!outputFile.is_open())
-	{
-		printf("Something is wrong with the output file"); // не использовать принтф
-
-	}
-
-	std::string search = searchString;
-	std::string replace = replacmentString;
-
-	CopyFileWithReplacement(inputFile, outputFile, search, replace);
-
-	outputFile.flush(); // нужно проверять успешность выхзова flush
-}
-
 void CopyFileWithReplacement(std::istream& input, std::ostream& output,
 	const std::string& searchString, const std::string& replacementString)
 {
@@ -76,7 +47,48 @@ void CopyFileWithReplacement(std::istream& input, std::ostream& output,
 		// обрабатывать ошибку записи
 		output << ReplaceString(line, searchString, replacementString) << "\n";
 	}
+
+	if (!input.eof())
+	{
+		std::cerr << "Ошибка чтения файла" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
 	// надо проверить успешно ли завершилось чтение файла
+}
+
+void GetResult(const std::string& inputFileName, const std::string& outputFileName,
+	const std::string& searchString, const std::string& replacmentString)
+{
+
+	std::ifstream inputFile;
+	inputFile.open(inputFileName);
+
+	if (!inputFile.is_open())
+	{
+		std::cerr << "Something is wrong with the input file";
+		exit(EXIT_FAILURE); // не использовать принтф
+	}
+
+	std::ofstream outputFile;
+	outputFile.open(outputFileName);
+
+	if (!outputFile.is_open())
+	{
+		std::cerr << "Something is wrong with the output file"; // не использовать принтф
+		exit(EXIT_FAILURE);
+	}
+
+	std::string search = searchString;
+	std::string replace = replacmentString;
+
+	CopyFileWithReplacement(inputFile, outputFile, search, replace);
+
+	if (!outputFile.flush())
+	{
+		std::cout << "Flush failed" << std::endl;
+		exit(EXIT_FAILURE); // нужно проверять успешность выхзова flush
+	}
 }
 
 int main(int argc, char* argv[])
@@ -95,9 +107,7 @@ int main(int argc, char* argv[])
 	search = argv[3];
 	replace = argv[4];
 
-	// Написать функцию принимающую имя входного и выходного файла, искомую строку и строку для замены и выполняет всю работу
-
-	GetResult(inputFileName, outputFileName, search, replace);
+	GetResult(inputFileName, outputFileName, search, replace); //
 
 	return 0;
 }
