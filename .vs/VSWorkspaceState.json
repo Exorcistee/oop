@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\lw1",
-    "\\lw1\\replace"
+    "\\lw1\\replace",
+    "\\lw2"
   ],
-  "SelectedNode": "\\lw1\\replace\\replace.sln",
+  "SelectedNode": "\\lw2",
   "PreviewInSolutionExplorer": false
 }

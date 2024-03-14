@@ -1,0 +1,2 @@
+C:\Users\Siblade\Documents\GitHub\oop\lw2\vector\x64\Debug\vector.exe
+C:\Users\Siblade\Documents\GitHub\oop\lw2\vector_main\vector\x64\Debug\vector.exe
