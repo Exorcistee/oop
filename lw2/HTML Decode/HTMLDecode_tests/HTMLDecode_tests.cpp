@@ -35,7 +35,7 @@ SCENARIO("Test Decode ")
 			std::string decodedString = HtmlDecode(inputString);
 			CHECK(decodedString == resultString);
 		}
-	}
+	}	
 
 	WHEN("Input string has the form \"&&&&&&&&&&&&&&&&&&&&&&;\"")
 	{

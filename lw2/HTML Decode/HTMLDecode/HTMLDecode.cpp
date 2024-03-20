@@ -9,7 +9,6 @@ int main()
 	{
 		std::string decodedHTML = HtmlDecode(HTML);
 		std::cout << decodedHTML << std::endl;
-
 	}
 
 	return 0;

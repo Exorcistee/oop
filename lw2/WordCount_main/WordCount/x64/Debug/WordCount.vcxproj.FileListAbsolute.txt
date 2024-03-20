@@ -1,0 +1,2 @@
+C:\Users\Siblade\Documents\GitHub\oop\lw2\WordCount\x64\Debug\WordCount.exe
+C:\Users\Siblade\Documents\GitHub\oop\lw2\WordCount_main\WordCount\x64\Debug\WordCount.exe

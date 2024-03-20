@@ -2,7 +2,8 @@
 #include <iostream>
 #include <map>
 
-std::map<const std::string, const std::string> symbols{
+std::map<const std::string, const std::string> symbols
+{
 	{ "&quot;", "\"" },
 	{ "&apos;", "'" },
 	{ "&lt;", "<" },
@@ -14,6 +15,7 @@ std::string ConvertToSymbol(const std::string code)
 {
 	return symbols[code] != "" ? symbols[code] : code;
 }
+// Исправить на map.at
 
 std::string HtmlDecode(std::string const& html)
 {
@@ -21,24 +23,23 @@ std::string HtmlDecode(std::string const& html)
 	std::string decodedHtml;
 	size_t indexStart = 0, indexEnd = 0;
 
-	while ((indexStart = html.find('&', indexStart)) != std::string::npos)
+	while ((indexEnd = html.find('&', indexEnd)) != std::string::npos)
 	{
-		decodedHtml.append(html, indexEnd, indexStart - indexEnd);
-		indexStart++;
-		indexEnd = indexStart;
+		decodedHtml.append(html, indexStart, indexEnd - indexStart);
+		indexEnd++;
+		indexStart = indexEnd;
 
-		if (html.find(';', indexEnd) != std::string::npos)
+		if (html.find(';', indexStart) != std::string::npos)
 		{
-			size_t lengthWordBetweenSymbols = html.find(';', indexEnd) - indexEnd;
+			size_t lengthWordBetweenSymbols = html.find(';', indexStart) - indexStart;
 
 			std::string code = "&";
-			code.append(html, indexEnd, lengthWordBetweenSymbols);
+			code.append(html, indexStart, lengthWordBetweenSymbols);
 			code += ";";
-
 			code = ConvertToSymbol(code);
 			decodedHtml += code;
-			indexStart += lengthWordBetweenSymbols + 1;
-			indexEnd = indexStart;
+			indexEnd += lengthWordBetweenSymbols + 1;
+			indexStart = indexEnd;
 		}
 		else
 		{
@@ -49,7 +50,8 @@ std::string HtmlDecode(std::string const& html)
 
 	if (indexStart != html.length())
 	{
-		decodedHtml.append(html, indexEnd, html.length() - indexEnd);
+		decodedHtml.append(html, indexStart, html.length() - indexStart);
 	}
+
 	return decodedHtml;
 }
